@@ -16,6 +16,15 @@
 
 package org.javarosa.core.model.actions;
 
+import org.javarosa.core.util.externalizable.DeserializationException;
+import org.javarosa.test.Scenario;
+import org.javarosa.xform.parse.XFormParser;
+import org.javarosa.xpath.XPathTypeMismatchException;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.io.IOException;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -36,14 +45,6 @@ import static org.javarosa.test.XFormsElement.setvalueLiteral;
 import static org.javarosa.test.XFormsElement.t;
 import static org.javarosa.test.XFormsElement.title;
 import static org.junit.Assert.fail;
-
-import java.io.IOException;
-import org.javarosa.test.Scenario;
-import org.javarosa.core.util.externalizable.DeserializationException;
-import org.javarosa.xform.parse.XFormParser;
-import org.javarosa.xpath.XPathTypeMismatchException;
-import org.junit.Ignore;
-import org.junit.Test;
 
 public class SetValueActionTest {
     @Test
@@ -71,6 +72,33 @@ public class SetValueActionTest {
         scenario.answer(22);
 
         assertThat(scenario.answerOf("/data/destination"), is(intAnswer(16)));
+    }
+
+    @Test
+    public void expressionAsLiteralValue_isNotEvaluated() throws IOException, XFormParser.ParseException {
+        Scenario scenario = Scenario.init("Literal setvalue", html(
+            head(
+                title("Literal setvalue"),
+                model(
+                    mainInstance(t("data id=\"literal-setvalue\"",
+                        t("source"),
+                        t("destination")
+                    )),
+                    bind("/data/source").type("string"),
+                    bind("/data/destination").type("string")
+                )
+            ),
+            body(
+                input("/data/source",
+                    setvalueLiteral("xforms-value-changed", "/data/destination", "4*4"))
+            )));
+
+        assertThat(scenario.answerOf("/data/destination"), is(nullValue()));
+
+        scenario.next();
+        scenario.answer(22);
+
+        assertThat(scenario.answerOf("/data/destination"), is(stringAnswer("4*4")));
     }
 
     @Test

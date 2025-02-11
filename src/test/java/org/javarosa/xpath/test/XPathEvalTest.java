@@ -198,7 +198,8 @@ public class XPathEvalTest {
         testEval("string('')", "");
         testEval("string('  ')", "  ");
         testEval("string('a string')", "a string");
-        testEval("string(date('1989-11-09'))", "1989-11-09");
+        //For #637
+        testEval("string(date('1989-11-09'))", "1989-11-09T00:00:00.000Z");
         testEval("string(convertible())", null, ec, "hi");
         testEval("string(inconvertible())", null, ec, new XPathTypeMismatchException());
         testEval("int('100')", 100.0);

@@ -530,6 +530,33 @@ public class TriggerableDagTest {
         assertThat(scenario.answerOf("/data/some-field"), is(intAnswer(42)));
     }
 
+    // Users use relevance on calculates to ensure that calculations are only run when the values
+    // they need are populated. Using relevance is easier than adding a condition.
+    @Test
+    public void relevance_appliesToElementsWithoutControls() throws IOException, XFormParser.ParseException {
+        Scenario scenario = Scenario.init("Relevance on calculate", html(
+            head(
+                title("Relevance on calculate"),
+                model(
+                    mainInstance(t("data id=\"relevance-calculate\"",
+                        t("q1"),
+                        t("c1"),
+                        t("c2")
+                    )),
+                    bind("/data/q1").type("string"),
+                    bind("/data/c1").calculate("2 * 2").relevant("/data/q1 = 'yes'"),
+                    bind("/data/c2").calculate("/data/c1")
+                )),
+            body(
+                input("/data/q1")
+            )));
+
+        assertThat(scenario.answerOf("/data/c2"), is(nullValue()));
+
+        scenario.answer("/data/q1", "yes");
+        assertThat(scenario.answerOf("/data/c2"), is(intAnswer(4)));
+    }
+
     /**
      * This test was inspired by the issue reported at https://code.google.com/archive/p/opendatakit/issues/888
      * <p>

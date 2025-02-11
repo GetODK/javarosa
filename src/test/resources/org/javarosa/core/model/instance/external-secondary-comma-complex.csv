@@ -1,4 +1,4 @@
-"label","name","first"
+"label","name","first", extra
 "A","a",
 B,b,
 C,c
@@ -7,3 +7,4 @@ AB,ab,a
 AC
 "121 Main St, NE",main,m
 "text; more text",foo,bar
+a, b

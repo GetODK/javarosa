@@ -29,6 +29,12 @@ public class CsvExternalInstanceTest {
     }
 
     @Test
+    public void heading_spaces_are_not_stripped() {
+        assertEquals(" extra", commaSeparated.getChildAt(0).getChildAt(3).getName());
+        assertEquals(" extra", semiColonSeparated.getChildAt(0).getChildAt(3).getName());
+    }
+
+    @Test
     public void value_has_no_extra_quotes() {
         assertEquals("A", commaSeparated.getChildAt(0).getChildAt(0).getValue().getValue());
         assertEquals("A", semiColonSeparated.getChildAt(0).getChildAt(0).getValue().getValue());
@@ -52,6 +58,12 @@ public class CsvExternalInstanceTest {
             assertEquals("", commaSeparated.getChildAt(5).getChildAt(fieldIndex).getValue().getValue());
             assertEquals("", semiColonSeparated.getChildAt(5).getChildAt(fieldIndex).getValue().getValue());
         }
+    }
+
+    @Test
+    public void value_spaces_are_not_stripped() {
+        assertEquals(" b", commaSeparated.getChildAt(8).getChildAt(1).getValue().getValue());
+        assertEquals(" b", semiColonSeparated.getChildAt(8).getChildAt(1).getValue().getValue());
     }
 
     @Test

@@ -33,14 +33,14 @@
             </instance>
 
             <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
-            <bind nodeset="/data/my-toplevel-value" type="integer"/>
+            <bind nodeset="/data/my-toplevel-value" type="int"/>
             <bind nodeset="/data/my-repeat/defaults-to-position" type="string"/>
-            <bind nodeset="/data/my-repeat/defaults-to-toplevel" type="integer"/>
+            <bind nodeset="/data/my-repeat/defaults-to-toplevel" type="int"/>
 
-            <bind nodeset="/data/repeat-count" type="integer"/>
+            <bind nodeset="/data/repeat-count" type="int"/>
             <bind nodeset="/data/my-jr-count-repeat/defaults-to-position-again" type="string"/>
 
-            <bind nodeset="/data/my-repeat-without-template/my-value" type="integer"/>
+            <bind nodeset="/data/my-repeat-without-template/my-value" type="int"/>
         </model>
     </h:head>
 

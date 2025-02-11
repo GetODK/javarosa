@@ -177,7 +177,7 @@ public class OdkNewRepeatEventTest {
                         t("repeat",
                             t("q"))
                     )),
-                    bind("/data/repeat/q").type("integer")
+                    bind("/data/repeat/q").type("int")
                 )
             ),
             body(

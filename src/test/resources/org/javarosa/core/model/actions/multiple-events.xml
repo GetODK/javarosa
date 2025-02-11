@@ -17,8 +17,8 @@
 
             <bind nodeset="/data/nested-first-load" type="string" />
             <bind nodeset="/data/my-group/nested-first-load-in-group" type="string" />
-            <bind nodeset="/data/my-value" type="integer" />
-            <bind nodeset="/data/my-calculated-value" type="integer" />
+            <bind nodeset="/data/my-value" type="int" />
+            <bind nodeset="/data/my-calculated-value" type="int" />
         </model>
     </h:head>
     <h:body>

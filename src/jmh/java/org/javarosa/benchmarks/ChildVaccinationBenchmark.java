@@ -17,6 +17,22 @@
 package org.javarosa.benchmarks;
 
 
+import org.javarosa.core.model.instance.TreeReference;
+import org.javarosa.test.Scenario;
+import org.javarosa.xform.parse.XFormParser;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
+
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 import static java.util.stream.Collectors.toList;
 import static org.javarosa.benchmarks.BenchmarkUtils.dryRun;
 import static org.javarosa.benchmarks.BenchmarkUtils.prepareAssets;
@@ -30,21 +46,6 @@ import static org.javarosa.benchmarks.ChildVaccinationBenchmark.Vaccines.MEASLES
 import static org.javarosa.benchmarks.ChildVaccinationBenchmark.Vaccines.NONE;
 import static org.javarosa.test.Scenario.getRef;
 import static org.javarosa.test.Scenario.init;
-
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import org.javarosa.core.model.instance.TreeReference;
-import org.javarosa.test.Scenario;
-import org.javarosa.xform.parse.XFormParser;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.infra.Blackhole;
 
 public class ChildVaccinationBenchmark {
 
@@ -110,7 +111,7 @@ public class ChildVaccinationBenchmark {
         bh.consume(state.scenario.answer("multi"));
         bh.consume(state.scenario.next());
         bh.consume(state.scenario.next());
-        bh.consume(state.scenario.answer("1.234 5.678"));
+        bh.consume(state.scenario.answer("1.234 5.678 0 2.3"));
         bh.consume(state.scenario.next());
         bh.consume(state.scenario.answer("Some building"));
         bh.consume(state.scenario.next());

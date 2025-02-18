@@ -17,11 +17,20 @@
 package org.javarosa.smoketests;
 
 
+import org.javarosa.core.model.instance.TreeReference;
+import org.javarosa.test.Scenario;
+import org.javarosa.xform.parse.XFormParser;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
-import static org.javarosa.test.Scenario.getRef;
 import static org.javarosa.smoketests.ChildVaccinationTest.Sex.FEMALE;
 import static org.javarosa.smoketests.ChildVaccinationTest.Sex.MALE;
 import static org.javarosa.smoketests.ChildVaccinationTest.Vaccines.DIPHTERIA;
@@ -30,16 +39,8 @@ import static org.javarosa.smoketests.ChildVaccinationTest.Vaccines.DIPHTERIA_FI
 import static org.javarosa.smoketests.ChildVaccinationTest.Vaccines.DIPHTERIA_FIRST_AND_MEASLES;
 import static org.javarosa.smoketests.ChildVaccinationTest.Vaccines.MEASLES;
 import static org.javarosa.smoketests.ChildVaccinationTest.Vaccines.NONE;
+import static org.javarosa.test.Scenario.getRef;
 import static org.junit.Assert.fail;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import org.javarosa.core.model.instance.TreeReference;
-import org.javarosa.test.Scenario;
-import org.javarosa.xform.parse.XFormParser;
-import org.junit.Test;
 
 public class ChildVaccinationTest {
 
@@ -70,7 +71,7 @@ public class ChildVaccinationTest {
         scenario.answer("multi");
         scenario.next();
         scenario.next();
-        scenario.answer("1.234 5.678");
+        scenario.answer("1.234 5.678 0 2.3"); // an accuracy of 0m or greater than 5m makes a second geopoint question relevant
         scenario.next();
         scenario.answer("Some building");
         scenario.next();
